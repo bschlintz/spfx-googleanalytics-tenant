@@ -1,0 +1,12 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "packageManager": "npm",
+    "isCreatingSolution": false,
+    "environment": "spo",
+    "version": "1.9.1",
+    "libraryName": "spfx-googleanalytics-tenant",
+    "libraryId": "55486055-464b-41a6-9258-2d490cdc04e5",
+    "isDomainIsolated": false,
+    "componentType": "extension"
+  }
+}

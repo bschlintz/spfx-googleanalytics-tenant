@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <CustomAction
+        Title="GoogleAnalytics"
+        Location="ClientSideExtension.ApplicationCustomizer"
+        ClientSideComponentId="aa48f7b8-015d-4d91-b2a5-1560eade312f"
+        ClientSideComponentProperties="{&quot;googleTrackingId&quot;:&quot;&quot;}">
+    </CustomAction>
+</Elements>
