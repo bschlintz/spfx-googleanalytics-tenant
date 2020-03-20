@@ -17,6 +17,7 @@
     "@microsoft/sp-core-library": "1.10.0",
     "@types/es6-promise": "0.0.33",
     "@types/webpack-env": "1.13.1",
+    "crypto-js": "^4.0.0",
     "typescript": "^3.3.4000"
   },
   "devDependencies": {

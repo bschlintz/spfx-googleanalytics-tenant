@@ -14,9 +14,43 @@ Deploy Google Analytics to all modern sites in your SharePoint Online tenant usi
 ### Configuration
 This solution is deployed using [Tenant Wide Extensions](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/basics/tenant-wide-deployment-extensions). You can modify the JSON properties configuration via the item in the Tenant Wide Extensions list. The available properties are below.
 
-| Property Name       | Default Value | Description |
+| Extension Property Name       | Default Value | Description |
 | ------------------- | ------------- | ----- |
-| googleTrackingId | `""` | Google Analytics Tracking ID. Example: UA-111111111-1 |
+| googleTrackingId | `""` | Required.<br/>Google Analytics Example: UA-111111111-1<br/>Google Tag Manager Example: GTM-XXXX |
+| useGoogleTagManager | `false` | Optional. Use [Google Tag Manager](https://developers.google.com/tag-manager/quickstart) instead of [Google Analytics](https://developers.google.com/analytics/devguides/collection/gtagjs). |
+| propertyMappings | `undefined` | Optional (Google Tag Manager only).<br/> Collection of user property mappings from the SharePoint User Profile service to the Google Tag Manager dataLayer. |
+| disableCache | `false` | Optional (Google Tag Manager only).<br/>Disable client-side caching of SharePoint User Profile when using Google Tag Manager with property mappings. |
+| cacheLifetimeMins | `720`<br/>(12 hours) | Optional (Google Tag Manager only).<br/>Number of minutes the SharePoint User Profile should remain cached in browser localStorage before re-fetching. |
+
+#### Property Mappings
+Specify a collection of mappings from SharePoint User Profile Properties to Google Tag Manager dataLayer properties. 
+
+| Mapped Property Name | Default Value | Description |
+| ------------------- | ------------- | ----- |
+| spoUserPropertyName | `undefined` | Required. Internal name of SharePoint User Profile property. |
+| gtmPropertyName | `undefined` | Required. Name of the property to map the User Profile Value into when sent to Google Tag Manager. |
+| encryptSHA256 | `false` | Optional. Encrypt with SHA256 and send masked hash value instead of plain text value. |
+
+Example tenant wide extension configuration with property mappings below:
+
+```json
+{
+  "googleTrackingId": "GTM-XXXX",
+  "useGoogleTagManager": true,
+  "propertyMappings": [
+    { "spoUserPropertyName": "Title", "gtmPropertyName": "jobTitle" },
+    { "spoUserPropertyName": "contosoEmployeeID", "gtmPropertyName": "employeeID", "encryptSHA256": true },
+    { "spoUserPropertyName": "contosoBusGroup", "gtmPropertyName": "businessGroup" },
+    { "spoUserPropertyName": "contosoBusSubGroup", "gtmPropertyName": "businessSubGroup" },
+    { "spoUserPropertyName": "contosoManagerInd", "gtmPropertyName": "manager" },
+    { "spoUserPropertyName": "contosoExemptStatus", "gtmPropertyName": "expemptStat" },
+    { "spoUserPropertyName": "contosoFullTimeInd", "gtmPropertyName": "fullTime" },
+    { "spoUserPropertyName": "contosoStartDate", "gtmPropertyName": "startDate" },
+    { "spoUserPropertyName": "contosoCity", "gtmPropertyName": "city" },
+    { "spoUserPropertyName": "contosoState", "gtmPropertyName": "state" }
+  ]
+}
+```
 
 ![Tenant Wide Extension List Item](./docs/TenantWideExtensionItem.png)
 
