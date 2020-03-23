@@ -3,7 +3,7 @@
   "solution": {
     "name": "Google Analytics Tracker - Tenant Scope",
     "id": "55486055-464b-41a6-9258-2d490cdc04e5",
-    "version": "1.1.0.0",
+    "version": "1.2.0.0",
     "includeClientSideAssets": true,
     "isDomainIsolated": false,
     "skipFeatureDeployment": true,

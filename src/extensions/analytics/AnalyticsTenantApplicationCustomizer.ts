@@ -25,7 +25,7 @@ const DEFAULT_PROPERTIES: IAnalyticsTenantApplicationCustomizerProperties = {
   useGoogleTagManager: false,
   propertyMappings: undefined,
   disableCache: false,
-  cacheLifetimeMins: 60 * 60 * 12 /* 12 hours */
+  cacheLifetimeMins: 60 * 12 /* 12 hours */
 };
 
 export default class AnalyticsTenantApplicationCustomizer
@@ -94,8 +94,13 @@ export default class AnalyticsTenantApplicationCustomizer
     // Deconstructed Google Tag Manager gtm.js Embed Code
     // Docs: https://developers.google.com/tag-manager/quickstart
 
-    window["dataLayer"] = dataLayerProperies ? [ dataLayerProperies ] : window["dataLayer"] || [];
-    window["dataLayer"].push({ 'gtm.start' : new Date().getTime(), event: 'gtm.js' });
+    let customDataLayer = [];
+    if (dataLayerProperies) {
+      customDataLayer.push(dataLayerProperies);
+    }
+    customDataLayer.push({ 'gtm.start' : new Date().getTime(), event: 'gtm.js' });
+
+    window["dataLayer"] = customDataLayer;
 
     var gtagScript = document.createElement('script');
     gtagScript.async = true;
@@ -132,7 +137,7 @@ export default class AnalyticsTenantApplicationCustomizer
   private async getCurrentUserProperties(): Promise<any> {
     const { disableCache, cacheLifetimeMins } = this.getProperties();
     const cacheKey = 'GoogleAnalyticsExtensionUserProfileProperties';
-    const cacheExpiration = 1000 * (undefined !== cacheLifetimeMins && !isNaN(cacheLifetimeMins) ? cacheLifetimeMins : DEFAULT_PROPERTIES.cacheLifetimeMins);
+    const cacheExpiration = 1000 * 60 * (undefined !== cacheLifetimeMins && !isNaN(cacheLifetimeMins) ? cacheLifetimeMins : DEFAULT_PROPERTIES.cacheLifetimeMins);
     const cachedUserProfile = this.cacheGet(cacheKey);
 
     if (!disableCache && cachedUserProfile) {
